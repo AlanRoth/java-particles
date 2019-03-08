@@ -21,9 +21,7 @@ public class ParticleController {
         
     }
     
-    public void createParticle(int posX, int posY){
-        System.out.println("Particle made at: X:" + posX + " Y:" + posY);
-        
+    public void createParticle(int posX, int posY){   
         for(ParticleCreationEvent listner : listeners){
             listner.particleCreated(posX, posY);
         }

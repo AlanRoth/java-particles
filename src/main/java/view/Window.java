@@ -55,7 +55,7 @@ public class Window extends JPanel implements ParticleCreationEvent, ActionListe
         
         Graphics2D graphics2D = (Graphics2D) graphics;
         
-        particles.stream().forEach((p)->{
+        particles.parallelStream().forEach((p)->{
             Ellipse2D e = new Ellipse2D.Double(p.getX(), p.getY(), p.getWidth(), p.getHeight());
             graphics2D.fill(e);
             graphics2D.draw(e);
@@ -66,7 +66,7 @@ public class Window extends JPanel implements ParticleCreationEvent, ActionListe
     
     public void particleMotion(Graphics graphics){
         Graphics2D graphics2D = (Graphics2D) graphics;
-        particles.stream().forEach((p)->{
+        particles.parallelStream().forEach((p)->{
             double posX = p.getX();
             double posY = p.getY();
             if(posX > this.getWidth()){
@@ -89,6 +89,7 @@ public class Window extends JPanel implements ParticleCreationEvent, ActionListe
         particle.setAccelerationX((Math.random()*5)-2.5);
         particle.setAccelerationY((Math.random()*5)-2.5);
         particles.add(particle);
+        System.out.println(particles.size() + " Particles on screen");
     }
     
     @Override
