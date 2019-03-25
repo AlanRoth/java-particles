@@ -48,7 +48,7 @@ public class Window extends JPanel implements ParticleCreationEvent, ActionListe
         super.paintComponent(graphics);
         
         renderParticles(graphics);
-        particleMotion(graphics);
+        particleMotion();
     }
 
     public void renderParticles(Graphics graphics){
@@ -64,30 +64,28 @@ public class Window extends JPanel implements ParticleCreationEvent, ActionListe
         Toolkit.getDefaultToolkit().sync();
     }
     
-    public void particleMotion(Graphics graphics){
-        Graphics2D graphics2D = (Graphics2D) graphics;
+    public void particleMotion(){
         particles.parallelStream().forEach((p)->{
             double posX = p.getX();
             double posY = p.getY();
+            double speedX = p.getSpeedX();
+            double speedY = p.getSpeedY();
+            
             if(posX > this.getWidth()){
-                p.setAccelerationX((Math.random()*5)-2.5);
+                p.setSpeedX(-speedX);
             }else if(posY > this.getHeight()){
-                p.setAccelerationY((Math.random()*5)-2.5);
+                p.setSpeedY(-speedY);
             }else if(posX < 0){
-                p.setX(0);
-                p.setAccelerationX((Math.random()*5)-2.5);
+                p.setSpeedX(Math.abs(speedX));
             }else if(posY < 0){
-                p.setY(0);
-                p.setAccelerationY((Math.random()*5)-2.5);
+                p.setSpeedY(Math.abs(speedY));
             }
-            p.applyAcceleration();
+            p.applyVelocity();
         });
     }
     
     private void createParticle(double posX, double posY){
         Particle particle = new Particle(posX, posY);
-        particle.setAccelerationX((Math.random()*5)-2.5);
-        particle.setAccelerationY((Math.random()*5)-2.5);
         particles.add(particle);
         System.out.println(particles.size() + " Particles on screen");
     }

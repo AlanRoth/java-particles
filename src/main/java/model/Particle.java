@@ -12,12 +12,14 @@ public class Particle {
     private double posY;
     private final int WIDTH = 2;
     private final int HEIGHT = 2;
-    private double accelerationX;
-    private double accelerationY;
+    private double speedX;
+    private double speedY;
     
     public Particle(double posX, double posY){
         this.posX = posX;
         this.posY = posY;
+        speedX = (Math.random()*5-2.5);
+        speedY = (Math.random()*5-2.5);
     }
     
     public void setX(double value){
@@ -44,17 +46,25 @@ public class Particle {
         return WIDTH;
     }
     
-    public void setAccelerationX(double value){
-        accelerationX = value;
+    public void setSpeedX(double value){
+        speedX = value;
     }
     
-    public void setAccelerationY(double value){
-        accelerationY = value;
+    public void setSpeedY(double value){
+        speedY = value;
     }
     
-    public void applyAcceleration(){
-        posX = posX + accelerationX;
-        posY = posY + accelerationY;
+    public double getSpeedX(){
+        return speedX;
+    }
+    
+    public double getSpeedY(){
+        return speedY;
+    }
+    
+    public void applyVelocity(){
+        posX = posX + speedX;
+        posY = posY + speedY;
     }
     
 }
